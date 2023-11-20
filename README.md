@@ -17,3 +17,7 @@ main method in Main.java is the entrance point. You can run from this
 > Create a rectangle from left-top point(16,1) to right-bottom point(20,3).
 4. Q
 > Quit this program.
+
+# Note
+> This program is base on command line. So,there is no third-part jar(You can run anywhere merely have JDK8 or JRE8).
+> The test code is only simulate unit testing by print out result.
