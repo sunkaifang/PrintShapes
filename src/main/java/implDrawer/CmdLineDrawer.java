@@ -17,13 +17,10 @@ public class CmdLineDrawer implements ShapeDrawer {
      * 1. When create canvas use C cmd, parameter count should at least 3
      * 2. When crate Line/Rectangle use L/R, parameter count should at least 5
      * 3. Only support vertical/horizontal lines, so x1==x2, or y1==y2 need ensure
-     *
+     * <p>
      * Maybe need to support rule: todo
      * 1.(x1,x2),(y1,y2), should smaller than canvas width/height or not? I think should not.
      * As we know, many painting application can extend canvas size automatically. I think we should not limit canvas size as fixed.
-     *
-     *
-     * @param args
      */
     @Override
     public boolean checkingArgs(DrawingArgs args) {
@@ -49,7 +46,7 @@ public class CmdLineDrawer implements ShapeDrawer {
 
         String commandStr = args.getData()[0].toString().trim();
 
-        if ("".equals(commandStr)) {
+        if (commandStr.isEmpty()) {
             System.out.println("args.data[0] is empty or blank");
             return false;
         }
@@ -60,13 +57,13 @@ public class CmdLineDrawer implements ShapeDrawer {
         switch (cmdType) {
             case CREATE_CANVAS:
                 if (CREATE_CANVAS_PARAMETER_COUNT_LIMIT > commands.length) {
-                    System.out.println(String.format("CREATE_CANVAS should have %d parameters at least!", CREATE_CANVAS_PARAMETER_COUNT_LIMIT));
+                    System.out.printf("CREATE_CANVAS should have %d parameters at least!%n", CREATE_CANVAS_PARAMETER_COUNT_LIMIT);
                     return false;
                 }
                 break;
             case CREATE_LINE:
                 if (CREATE_SHAPES_PARAMETER_COUNT_LIMIT > commands.length) {
-                    System.out.println(String.format("CREATE_LINE/CREATE_RECTANGLE should have %d parameters at least!", CREATE_SHAPES_PARAMETER_COUNT_LIMIT));
+                    System.out.printf("CREATE_LINE/CREATE_RECTANGLE should have %d parameters at least!%n", CREATE_SHAPES_PARAMETER_COUNT_LIMIT);
                     return false;
                 }
                 // only support horizontal or vertical line
@@ -76,7 +73,7 @@ public class CmdLineDrawer implements ShapeDrawer {
                 }
             case CREATE_RECTANGLE:
                 if (CREATE_SHAPES_PARAMETER_COUNT_LIMIT > commands.length) {
-                    System.out.println(String.format("CREATE_LINE/CREATE_RECTANGLE should have %d parameters at least!", CREATE_SHAPES_PARAMETER_COUNT_LIMIT));
+                    System.out.printf("CREATE_LINE/CREATE_RECTANGLE should have %d parameters at least!%n", CREATE_SHAPES_PARAMETER_COUNT_LIMIT);
                     return false;
                 }
                 break;
@@ -95,21 +92,14 @@ public class CmdLineDrawer implements ShapeDrawer {
             String cmdType = commands[0];
 
             switch (cmdType) {
-                case CREATE_CANVAS:
-                    createCanvas(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
-                    break;
-                case CREATE_LINE:
-                case CREATE_RECTANGLE:
-                    createShape(cmdType, Integer.parseInt(commands[1]), Integer.parseInt(commands[2]),
-                            Integer.parseInt(commands[3]), Integer.parseInt(commands[4]));
-                    break;
-                default:
-//                    throw new BusinessException("Invalid command. Please enter a valid command.");
-                    System.out.println("Invalid command. Please enter a valid command.");
-
+                case CREATE_CANVAS -> createCanvas(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
+                case CREATE_LINE, CREATE_RECTANGLE ->
+                        createShape(cmdType, Integer.parseInt(commands[1]), Integer.parseInt(commands[2]),
+                                Integer.parseInt(commands[3]), Integer.parseInt(commands[4]));
+                default -> System.out.println("Invalid command. Please enter a valid command.");
             }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new BusinessException("Invalid command format. Please enter a valid command.");
+        } catch (Exception e) {
+            throw new BusinessException("CmdLineDraw.processArgs exception", e);
         }
     }
 

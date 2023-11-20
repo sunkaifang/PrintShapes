@@ -1,5 +1,5 @@
-import entity.*;
-import utils.*;
+import entity.Point;
+import utils.DrawUtil;
 
 public class DrawUtilTest {
     private static final char SHAPE_FILL_CHAR = 'X';

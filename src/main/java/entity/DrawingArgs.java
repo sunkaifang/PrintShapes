@@ -7,8 +7,8 @@ public class DrawingArgs {
 
     private Object[] data;
 
-    public DrawingArgs(Object[] data){
-        this.data=data;
+    public DrawingArgs(Object[] data) {
+        this.data = data;
     }
 
     public Object[] getData() {

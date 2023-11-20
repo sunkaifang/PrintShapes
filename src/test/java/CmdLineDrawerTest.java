@@ -1,6 +1,6 @@
-import implDrawer.CmdLineDrawer;
 import entity.DrawingArgs;
 import exception.BusinessException;
+import implDrawer.CmdLineDrawer;
 
 public class CmdLineDrawerTest {
 
@@ -18,33 +18,40 @@ public class CmdLineDrawerTest {
         DrawingArgs invalidArgs2 = new DrawingArgs(new Object[0]);
         DrawingArgs invalidArgs3 = new DrawingArgs(new Object[]{""});
 
-        try {
-            cmdLineDrawer.checkingArgs(validArgs);
+
+        boolean actualResult = cmdLineDrawer.checkingArgs(validArgs);
+        if (actualResult) {
             System.out.println("Valid Args Test Passed!");
-        } catch (BusinessException e) {
+
+        } else {
             System.out.println("Valid Args Test Failed!");
         }
 
-        try {
-            cmdLineDrawer.checkingArgs(invalidArgs1);
-            System.out.println("Invalid Args Test Failed!");
-        } catch (BusinessException e) {
-            System.out.println("Invalid Args Test Passed!");
+        boolean actualResult1 = cmdLineDrawer.checkingArgs(invalidArgs1);
+        if (!actualResult1) {
+            System.out.println("Invalid Args Test1 Passed!");
+        } else {
+            System.out.println("Invalid Args Test1 Failed!");
         }
 
-        try {
-            cmdLineDrawer.checkingArgs(invalidArgs2);
-            System.out.println("Invalid Args Test Failed!");
-        } catch (BusinessException e) {
-            System.out.println("Invalid Args Test Passed!");
+        boolean actualResult2 = cmdLineDrawer.checkingArgs(invalidArgs2);
+        if (!actualResult2) {
+            System.out.println("Invalid Args Test2 Passed!");
+
+        } else {
+            System.out.println("Invalid Args Test2 Failed!");
+
         }
 
-        try {
-            cmdLineDrawer.checkingArgs(invalidArgs3);
-            System.out.println("Invalid Args Test Failed!");
-        } catch (BusinessException e) {
-            System.out.println("Invalid Args Test Passed!");
+        boolean actualResult3 = cmdLineDrawer.checkingArgs(invalidArgs3);
+        if (!actualResult3) {
+            System.out.println("Invalid Args Test3 Passed!");
+
+        } else {
+            System.out.println("Invalid Args Test3 Failed!");
+
         }
+
     }
 
     private static void testProcessArgs() {
@@ -60,6 +67,21 @@ public class CmdLineDrawerTest {
             System.out.println("Valid Canvas Args Test Failed!");
         }
 
+        DrawingArgs inValidCanvasArgs = new DrawingArgs(new Object[]{"C 5"});
+        try {
+            cmdLineDrawer.processArgs(inValidCanvasArgs);
+            System.out.println("Inalid Canvas Args Test Failed!");
+        } catch (BusinessException e) {
+            System.out.println("Invalid Canvas Args Test Passed!");
+        }
+
+        DrawingArgs inValidCanvasArgs2 = new DrawingArgs(new Object[]{"L 5 3"});
+        try {
+            cmdLineDrawer.processArgs(inValidCanvasArgs2);
+            System.out.println("Inalid Canvas Args Test2 Failed!");
+        } catch (BusinessException e) {
+            System.out.println("Invalid Canvas Args Test Passed!");
+        }
 
     }
 }

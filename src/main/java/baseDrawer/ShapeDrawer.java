@@ -5,8 +5,10 @@ import entity.Point;
 import entity.Shape;
 import utils.DrawUtil;
 import utils.PrintUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static commons.ConstantVariables.*;
 
 public interface ShapeDrawer {
@@ -14,7 +16,6 @@ public interface ShapeDrawer {
 
     /**
      * subClass need to implement
-     *
      */
     void processArgs(DrawingArgs args);
 
@@ -22,25 +23,24 @@ public interface ShapeDrawer {
 
     /**
      * Template method to draw shapes
-     *
      */
     default void drawTemplate(DrawingArgs args) {
         //Step 1: checking args in subClass
-        boolean checkResult=checkingArgs(args);
-        if(checkResult){
+        boolean checkResult = checkingArgs(args);
+        if (checkResult) {
             //Step 2: process args in subClass
             processArgs(args);
             //Step 3: draw shapes in superClass, shapes are stored in memory array
             char[][] canvas = drawShapesInMemory();
             //Step 4: print memory shapes to UI
             PrintUtil.printCanvas(canvas);
-        }else{
+        } else {
             System.out.println("Arguments checking failed, will do nothing");
         }
 
     }
 
-    private char[][] drawShapesInMemory() {
+    default char[][] drawShapesInMemory() {
         char[][] canvas = createEmptyCanvas();
         for (Shape shape : shapes) {
             if (CREATE_LINE.equals(shape.getType())) {

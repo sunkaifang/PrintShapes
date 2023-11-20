@@ -11,7 +11,7 @@ import static commons.ConstantVariables.CMD_QUIT_SYS;
  */
 public class Main {
 
-    // Here, we just demo with hardcoding(drawerType=0), use Cmd lines input implement drawing shapes.
+    // Here, we just demo with hard-coding(drawerType=0), use Cmd lines input implement drawing shapes.
     // In real project, you can pass drawType dynamically, to get a dynamic shapeDrawer instance.
     private static final ShapeDrawer shapeDrawer = DrawerFactory.getDrawer(0);
     private static final Scanner scanner = new Scanner(System.in);
